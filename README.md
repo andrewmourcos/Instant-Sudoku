@@ -1,4 +1,5 @@
 # Instant-Sudoku
+### *This is version 2 and is currently a work in progress*
 
 If you place a printed sudoku game in front of your laptop's camera and run my code, it should be able to solve the game for you.
 
