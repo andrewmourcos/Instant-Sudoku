@@ -1,3 +1,6 @@
+# this script takes pictures of sudoku games and
+# extracts all the squares, saving those in /DigitExample
+
 import cv2
 import numpy as np
 

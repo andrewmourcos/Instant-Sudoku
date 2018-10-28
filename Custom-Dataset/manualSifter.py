@@ -1,3 +1,6 @@
+# This takes the dataset of numebrs from DigitExample and 
+# allows you to easily label each one.
+
 # 48->57
 import cv2
 import os

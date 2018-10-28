@@ -7,7 +7,7 @@ import cv2
 import joblib
 
 # Generate training set
-TRAIN_PATH = "Custom-Dataset/Train/"
+TRAIN_PATH = "Dataset/Train/"
 list_folder = os.listdir(TRAIN_PATH)
 # removing bothersome files
 list_folder.remove('.DS_Store') 
@@ -29,7 +29,7 @@ for i in range(0,10):
     train_label += temp
 
 # Generate testing set
-TEST_PATH = "Custom-Dataset/Test/"
+TEST_PATH = "Dataset/Test/"
 list_folder = os.listdir(TEST_PATH)
 # removing bothersome files
 list_folder.remove('.DS_Store') 
