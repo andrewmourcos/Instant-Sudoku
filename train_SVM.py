@@ -1,62 +1,17 @@
-# source ~/virtualenv/cv/bin/activate
+from sklearn import datasets, svm
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.externals import joblib
 
-import numpy as np
-from sklearn.svm import LinearSVC
-import os
-import cv2
-import joblib
+digits = datasets.load_digits()
+classifier = svm.SVC(gamma = 0.001)
 
-# Generate training set
-TRAIN_PATH = "Dataset/Train/"
-list_folder = os.listdir(TRAIN_PATH)
-# removing bothersome files
-list_folder.remove('.DS_Store') 
-trainset = []
-for folder in list_folder:
-    flist = os.listdir(os.path.join(TRAIN_PATH, folder))
-    for f in flist:
-        file = os.path.join(TRAIN_PATH, folder, f)
-        if (f != ".DS_Store"):
-            print(file)
-            im = cv2.imread(file, 0)
-            im = cv2.resize(im, (36,36))
-            trainset.append(im)
+x_train, x_test, y_train, y_test = train_test_split(digits.data, digits.target, test_size=0.33, random_state=5)
 
-# Labeling for trainset
-train_label = []
-for i in range(0,10):
-    temp = 500*[i]
-    train_label += temp
+logisticRegr = LogisticRegression()
 
-# Generate testing set
-TEST_PATH = "Dataset/Test/"
-list_folder = os.listdir(TEST_PATH)
-# removing bothersome files
-list_folder.remove('.DS_Store') 
-testset = []
-test_label = []
-for folder in list_folder:
-    flist = os.listdir(os.path.join(TEST_PATH, folder))
-    for f in flist:
-        file = os.path.join(TEST_PATH, folder, f)
-        if (f != ".DS_Store"):
-            im = cv2.imread(file, 0)
-            im = cv2.resize(im, (36,36))
-            testset.append(im)
-            test_label.append(int(folder))
-trainset = np.reshape(trainset, (5000, -1))
+classifier = logisticRegr.fit(x_train, y_train)
 
-# Create a linear SVM object
-clf = LinearSVC()
+score = classifier.score(x_test, y_test)
+print("The accuracy is: " + str(score))
 
-# Perform the training
-clf.fit(trainset, train_label)
-print("Training finished successfully")
-
-# Testing
-testset = np.reshape(testset, (len(testset), -1))
-y = clf.predict(testset)
-print("Testing accuracy: " + str(clf.score(testset, test_label)))
-
-# creating pickle
-joblib.dump(clf, "classifier.pkl", compress=3)

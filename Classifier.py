@@ -2,6 +2,23 @@ import cv2
 import numpy as np
 import joblib
 
+from sklearn import datasets, svm
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.externals import joblib
+
+digits = datasets.load_digits()
+classifier = svm.SVC(gamma = 0.001)
+
+x_train, x_test, y_train, y_test = train_test_split(digits.data, digits.target, test_size=0.33)
+
+logisticRegr = LogisticRegression()
+
+clf = logisticRegr.fit(x_train, y_train)
+
+score = clf.score(x_test, y_test)
+print("The accuracy is: " + str(score))
+
 # functions
 def rectify(h):
         h = h.reshape((4,2))
@@ -22,7 +39,7 @@ sudoku = cv2.imread("puzzle.jpg", 0)
 sudoku1 = cv2.imread("puzzle.jpg")
 
 #import classifier
-clf = joblib.load('classifier.pkl')
+clf = joblib.load('classifier2.pkl') 
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -94,7 +111,7 @@ for cnt in contours[:81]:
     digit = cv2.erode(digit, kernel, iterations=2)
     cv2.rectangle(warped1,(x,y),(x+w,y+h),(200,0,0),2)
 
-    digit = cv2.resize(digit, (36,36))
+    digit = cv2.resize(digit, (8,8))
     num = clf.predict(np.reshape(digit, (1,-1)))
     cv2.putText(warped1,str(num[0]),(x,y+h),font,1,(225,0,0),2)
 
