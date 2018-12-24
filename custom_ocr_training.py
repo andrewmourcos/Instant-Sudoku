@@ -37,28 +37,28 @@ for folder in list_test_folders:
 			img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 			img = cv2.resize(img, (36,36))
 			testset.append(img)
-			testlabels.append(folder)
+			testlabels.append(int(folder))
 
 print("\n" + str(len(trainset)) + " elements to train on")
 trainset = np.reshape(trainset, (len(trainset), -1))
 testset = np.reshape(testset, (len(testset), -1))
 
 svm = LinearSVC()
+knn = neighbors.KNeighborsClassifier()
+logistic = linear_model.LogisticRegression()
+
 svm.fit(trainset, trainlabels)
+knn.fit(trainset, trainlabels)
+logistic.fit(trainset, trainlabels)
 print("Training complete...")
 
-# knn = neighbors.KNeighborsClassifier()
-# logistic = linear_model.LogisticRegression(solver='lbfgs', max_iter=3000,
-#                                            multi_class='multinomial')
-# svm = LinearSVC()
 
-# print('KNN score: %f' % knn.fit(trainset, trainlabels).score(testset, testlabels))
-# print('LogisticRegression score: %f'
-#      % logistic.fit(trainset, trainlabels).score(testset, testlabels))
-# print('Svm score: %f' % svm.fit(trainset, trainlabels).score(testset, testlabels))
-# svm.fit(trainset, trainlabels)
+X = svm.predict(testset)
+print("SVM score: " + str(accuracy_score(testlabels, svm.predict(testset))))
+print("KNN score: " + str(accuracy_score(testlabels, knn.predict(testset))))
+print("Log Reg score: " + str(accuracy_score(testlabels, logistic.predict(testset))))
 
-joblib.dump(svm, "classifier.pkl", compress=3)
+joblib.dump(knn, "classifier.pkl", compress=3)
 
 
 
