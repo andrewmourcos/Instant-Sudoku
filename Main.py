@@ -1,4 +1,6 @@
-# Uses 3443 training digits personally collected
+# Using 3443 data points I collected
+# + 4362 data points from Cap Huuquan
+# + 
 import cv2
 import numpy as np
 import joblib
@@ -6,32 +8,19 @@ from sklearn import datasets, neighbors, linear_model
 from sklearn.externals import joblib
 from sklearn.svm import LinearSVC
 import os
-
-
-# functions
-def rectify(h):
-        h = h.reshape((4,2))
-        hnew = np.zeros((4,2),dtype = np.float32)
- 
-        add = h.sum(1)
-        hnew[0] = h[np.argmin(add)]
-        hnew[2] = h[np.argmax(add)]
-         
-        diff = np.diff(h,axis = 1)
-        hnew[1] = h[np.argmin(diff)]
-        hnew[3] = h[np.argmax(diff)]
-  
-        return hnew
+from helpers import *
 
 # import image
-sudoku = cv2.imread("puzzle.jpg", 0)
-sudoku1 = cv2.imread("puzzle.jpg")
+sudoku = cv2.imread("ye.jpg", 0)
+sudoku1 = cv2.imread("ye.jpg")
+
+sudoku = cv2.resize(sudoku, (420,420))
+sudoku1 = cv2.resize(sudoku1, (420,420))
 
 #import classifier
 clf = joblib.load('classifier.pkl') 
 
 font = cv2.FONT_HERSHEY_SIMPLEX
-
 
 # filtering 
 cop = np.zeros(sudoku.shape, np.uint8)
@@ -39,7 +28,6 @@ blur = cv2.GaussianBlur(sudoku,(5,5),0)
 
 outerBox = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 5, 2)
 outerBox = cv2.bitwise_not(outerBox)
-
 
 # detect roi
 outerBox, contours, hierarchy = cv2.findContours(outerBox, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -89,9 +77,11 @@ for line in lines:
 
 grid = cv2.dilate(grid, kernel, iterations=2)
 # squareBit = cv2.bitwise_not(grid)
-
+numbers = np.zeros((9,9))
 # collect all squares
 _, contours, _ = cv2.findContours(grid,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
+
+# Iterate through all digits in sudoku puzzle
 idx =0 
 for cnt in contours[:81]:
     idx += 1
@@ -99,10 +89,20 @@ for cnt in contours[:81]:
     digit=outerBox[y:y+h,x:x+w]
     digit = cv2.erode(digit, kernel, iterations=2)
     cv2.rectangle(warped1,(x,y),(x+w,y+h),(200,0,0),2)
-
     digit = cv2.resize(digit, (36,36))
+
+    # Use classifier for digit
     num = clf.predict(np.reshape(digit, (1,-1)))
+    if(cv2.countNonZero(digit) < 50):
+        num = [0]
+
+    # Place digit in 2d array
+    row, col = locateEntry(x,y)
+    numbers[row][col] = num[0]
     cv2.putText(warped1,str(num[0]),(x,y+h),font,1,(225,0,0),2)
+
+# if(not solveSudoku(numbers)):
+#     print("Sorry, this one's a toughie... please try again")
 
 # display image
 cv2.imshow("character recognition", warped1)
