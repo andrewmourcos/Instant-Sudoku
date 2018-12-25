@@ -1,6 +1,5 @@
 # Using 3443 data points I collected
 # + 4362 data points from Cap Huuquan
-# + 
 import cv2
 import numpy as np
 import joblib
@@ -11,14 +10,14 @@ import os
 from helpers import *
 
 # import image
-sudoku = cv2.imread("ye.jpg", 0)
-sudoku1 = cv2.imread("ye.jpg")
+sudoku = cv2.imread("dex.jpg", 0)
+sudoku1 = cv2.imread("dex.jpg")
 
 sudoku = cv2.resize(sudoku, (420,420))
 sudoku1 = cv2.resize(sudoku1, (420,420))
 
 #import classifier
-clf = joblib.load('classifier.pkl') 
+clf = joblib.load('log-classifier.pkl') 
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -81,7 +80,7 @@ numbers = np.zeros((9,9))
 # collect all squares
 _, contours, _ = cv2.findContours(grid,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
 
-# Iterate through all digits in sudoku puzzle
+# Iterate through digits in sudoku puzzle
 idx =0 
 for cnt in contours[:81]:
     idx += 1
@@ -101,10 +100,20 @@ for cnt in contours[:81]:
     numbers[row][col] = num[0]
     cv2.putText(warped1,str(num[0]),(x,y+h),font,1,(225,0,0),2)
 
-# if(not solveSudoku(numbers)):
-#     print("Sorry, this one's a toughie... please try again")
-
-# display image
+# display sudoku puzzle with recognition
 cv2.imshow("character recognition", warped1)
 cv2.waitKey(0)
+print(numbers)
+
+# Allow user to correct recognition
+while(modify(numbers)):
+    print(numbers)
+
+# Solve sudoku puzzle
+if(not solveSudoku(numbers)):
+    print("Sorry, this one's a toughie... please try again")
+else:
+    print("Aha! Here's the solved puzzle:")
+    print(numbers)
+
 cv2.destroyAllWindows()

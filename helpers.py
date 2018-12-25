@@ -1,6 +1,17 @@
 import cv2
 import numpy as np
 
+def modify(array):
+	doModify = int(input("Would you like to modify the scan? (0 or 1)"))
+	if(doModify == 1):
+		row = int(input("Which row? "))
+		col = int(input("Which col? "))
+		val = int(input("What should it be replaced with?"))
+		array[row-1][col-1] = val
+	return doModify
+
+# ~~~ Sudoku solving functions by Hari ~~~
+# https://stackoverflow.com/questions/1697334/algorithm-for-solving-sudoku
 def findNextCellToFill(grid, i, j):
     for x in range(i,9):
         for y in range(j,9):
@@ -38,8 +49,7 @@ def solveSudoku(grid, i=0, j=0):
             # Undo the current cell for backtracking
             grid[i][j] = 0
     return False
-
-
+# ~~~ end of sudoku solver functions ~~~
 
 # parameters: x and y coordinates of the 
 # top left corner of contour

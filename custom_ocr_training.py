@@ -65,4 +65,6 @@ print("KNN score: " + str(accuracy_score(testlabels, knn.predict(testset))))
 print("Log Reg score: " + str(accuracy_score(testlabels, logistic.predict(testset))))
 
 # Save classifier as a pickle
-joblib.dump(logistic, "classifier.pkl", compress=3)
+joblib.dump(svm, "svm-classifier.pkl", compress=3)
+joblib.dump(knn, "knn-classifier.pkl", compress=3)
+joblib.dump(logistic, "log-classifier.pkl", compress=3)
