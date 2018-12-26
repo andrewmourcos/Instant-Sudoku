@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title>Sudoku Solver | Andrew Mourcos</title>
+  </head>
+  <body>
+    <h1>Sudoku Solver</h1>
+    <p style="color: red;">Please upload a picture of a sudoku puzzle (png, jpg, jpeg)</p>
+    <form action = "http://localhost:5000/" method = "POST" 
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" />
+         <input type = "submit"/>
+      </form>
+    <img src="{{image}}" alt="User Image">
+
+  </body>
+</html>
