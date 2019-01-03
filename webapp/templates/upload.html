@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sudoku Solver | Andrew Mourcos</title>
+	<style type="text/css">
+	  body {
+	  	font-family: Palatino;
+	    margin: 3% 10% 0 10%;
+	    text-align: center;
+	  }
+	  img{
+	  	object-fit: scale-down;
+	  	width: 30vw;
+	  	height: 30vw;
+	  }
+	</style>
+</head>
+<body>
+	<h1>Andrew's Sudoku Solver</h1>
+	<p>Please upload an image of your sudoku puzzle</p>
+	<div id="content">
+		<form id="upload-form" action="{{url_for('upload')}}" method="POST" enctype="multipart/form-data">
+			<input type="file" name="file" accept="image/*" >
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+	<h3>Your image:</h3>
+	<img src="{{ url_for('static', filename=puzzle) }}">
+	<img src="{{ url_for('static', filename=scan) }}">
+</body>
+</html>
