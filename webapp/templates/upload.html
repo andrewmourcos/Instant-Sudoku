@@ -13,11 +13,22 @@
 	  	width: 30vw;
 	  	height: 30vw;
 	  }
+	  footer{
+	  	margin-top: 3vh;
+	  }
+	  #solution{
+	  	color: red;
+	  	word-wrap: break-word;
+	  	white-space: pre;
+	  	font-size: 25px;
+	  }
 	</style>
 </head>
 <body>
-	<h1>Andrew's Sudoku Solver</h1>
-	<p>Please upload an image of your sudoku puzzle</p>
+	<h1>Instant Sudoku</h1>
+	<a href="{{url_for('static', filename='instructions.html')}}">Wondering how to use this web application?</a>
+
+	<p>Please upload an image of your sudoku puzzle (png or jpg)</p>
 	<div id="content">
 		<form id="upload-form" action="{{url_for('upload')}}" method="POST" enctype="multipart/form-data">
 			<input type="file" name="file" accept="image/*" >
@@ -25,7 +36,15 @@
 		</form>
 	</div>
 	<h3>Your image:</h3>
-	<img src="{{ url_for('static', filename=puzzle) }}">
-	<img src="{{ url_for('static', filename=scan) }}">
+	<p style="color: red;">{{error_msg}}</p>
+	<img src="{{ url_for('static', filename=puzzle) }}" alt="Your image">
+	<img src="{{ url_for('static', filename=scan) }}" alt="Extracted digits">
+
+	<h3>Solution to detected puzzle:</h3>
+	<p id="solution">{{recognized_puzzle}}</p>
+
+	<footer>
+		<p>Webapp made with flask by <a href="https://andrewmourcos.github.io">Andrew Mourcos</a></p>
+	</footer>
 </body>
 </html>

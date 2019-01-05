@@ -10,14 +10,14 @@ import os
 from helpers import *
 
 # import image
-sudoku = cv2.imread("dex.jpg", 0)
-sudoku1 = cv2.imread("dex.jpg")
+sudoku = cv2.imread("SamplePuzzles/puzzle5.jpg", 0)
+sudoku1 = cv2.imread("SamplePuzzles/puzzle5.jpg")
 
 sudoku = cv2.resize(sudoku, (420,420))
 sudoku1 = cv2.resize(sudoku1, (420,420))
 
 #import classifier
-clf = joblib.load('log-classifier.pkl') 
+clf = joblib.load('Classifiers/log-classifier.pkl') 
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 

@@ -1,3 +1,4 @@
+# Helper functions for main program
 import cv2
 import numpy as np
 

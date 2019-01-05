@@ -40,7 +40,7 @@ for folder in list_test_folders:
 			testset.append(img)
 			testlabels.append(int(folder))
 
-# formatting
+# formatting data
 print("\n" + str(len(trainset)) + " elements to train on")
 trainset = np.reshape(trainset, (len(trainset), -1))
 testset = np.reshape(testset, (len(testset), -1))
@@ -64,7 +64,7 @@ print("SVM score: " + str(accuracy_score(testlabels, svm.predict(testset))))
 print("KNN score: " + str(accuracy_score(testlabels, knn.predict(testset))))
 print("Log Reg score: " + str(accuracy_score(testlabels, logistic.predict(testset))))
 
-# Save classifier as a pickle
-joblib.dump(svm, "svm-classifier.pkl", compress=3)
-joblib.dump(knn, "knn-classifier.pkl", compress=3)
-joblib.dump(logistic, "log-classifier.pkl", compress=3)
+# Save classifier as a pickle file for later use
+joblib.dump(svm, "Classifiers/svm-classifier.pkl", compress=3)
+joblib.dump(knn, "Classifiers/knn-classifier.pkl", compress=3)
+joblib.dump(logistic, "Classifiers/log-classifier.pkl", compress=3)
