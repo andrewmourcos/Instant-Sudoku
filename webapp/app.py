@@ -53,15 +53,15 @@ def upload():
 				return render_template("upload.html", error_msg="No puzzle was detected, try a different angle")
 
 			print(extracted_puzzle)
-			# Clearing files
-			# @after_this_request
-			# def remove_file(response):
-			# 	try:
-			# 		os.remove(destination)
-			# 		os.remove("/".join([target, name]))
-			# 	except Exception as error:
-			# 		app.logger.error("Error removing or closing downloaded file handle", error)
-			# 	return response
+			Clearing files
+			@after_this_request
+			def remove_file(response):
+				try:
+					os.remove(destination)
+					os.remove("/".join([target, name]))
+				except Exception as error:
+					app.logger.error("Error removing or closing downloaded file handle", error)
+				return response
 
 			return render_template("upload.html", puzzle=filename, scan=name, recognized_puzzle=extracted_puzzle)
 		else:
