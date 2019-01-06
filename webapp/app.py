@@ -274,5 +274,11 @@ def upload():
 			return render_template("upload.html", error_msg="This image format is unsupported")
 
 
-if __name__ == "__main__":	
-	app.run(port=4555, debug=True)
+if __name__ == '__main__':
+     app.debug = True
+     port = int(os.environ.get("PORT", 5000))
+     app.run(host='0.0.0.0', port=port)
+
+
+
+     
