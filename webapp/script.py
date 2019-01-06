@@ -86,8 +86,8 @@ def rectify(h):
 def solve(fileName):
     try:
         # import image
-        sudoku = cv2.imread("static/%s" %fileName, 0)
-        sudoku1 = cv2.imread("static/%s" %fileName)
+        sudoku = cv2.imread("tmp/%s" %fileName, 0)
+        sudoku1 = cv2.imread("tmp/%s" %fileName)
 
         sudoku = cv2.resize(sudoku, (420,420))
         sudoku1 = cv2.resize(sudoku1, (420,420))
@@ -178,7 +178,7 @@ def solve(fileName):
 
         new_file_name = "solved_%s" %fileName
         # display sudoku puzzle with recognition
-        cv2.imwrite("static/%s" %new_file_name, warped1)
+        cv2.imwrite("tmp/%s" %new_file_name, warped1)
         cv2.waitKey(0)
         print(new_file_name)
         if not solveSudoku(numbers):
