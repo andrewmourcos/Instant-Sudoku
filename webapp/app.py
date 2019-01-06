@@ -1,3 +1,5 @@
+# git subtree push --prefix webapp heroku master
+
 import os
 from flask import Flask, render_template, request, after_this_request
 from script import *
