@@ -9,9 +9,11 @@ future==0.16.0
 get==2018.11.19
 gunicorn==19.9.0
 idna==2.8
+import-string==0.1.0
 itsdangerous==0.24
 Jinja2==2.10
 joblib==0.11
+manage==0.1.13
 MarkupSafe==1.0
 numpy==1.14.2
 opencv-python==3.4.0.12
@@ -20,6 +22,7 @@ post==2018.11.20
 public==2018.11.20
 python-ly==0.9.5
 pytz==2018.4
+PyYAML==3.13
 query-string==2018.11.20
 request==2018.11.20
 requests==2.21.0
