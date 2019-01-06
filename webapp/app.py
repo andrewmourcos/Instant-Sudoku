@@ -53,7 +53,7 @@ def upload():
 				return render_template("upload.html", error_msg="No puzzle was detected, try a different angle")
 
 			print(extracted_puzzle)
-			Clearing files
+			# Clearing files
 			@after_this_request
 			def remove_file(response):
 				try:
