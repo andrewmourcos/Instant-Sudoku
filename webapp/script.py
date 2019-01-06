@@ -179,7 +179,6 @@ def solve(fileName):
         new_file_name = "solved_%s" %fileName
         # display sudoku puzzle with recognition
         cv2.imwrite("tmp/%s" %new_file_name, warped1)
-        cv2.waitKey(0)
         print(new_file_name)
         if not solveSudoku(numbers):
             solution = "Sorry, this one's a toughie... please try again"
@@ -188,15 +187,4 @@ def solve(fileName):
         return new_file_name, solution
     except:
         print("No puzzle was detected in the image")
-    # # Allow user to correct recognition
-    # while(modify(numbers)):
-    #     print(numbers)
 
-    # # Solve sudoku puzzle
-    # if(not solveSudoku(numbers)):
-    #     print("Sorry, this one's a toughie... please try again")
-    # else:
-    #     print("Aha! Here's the solved puzzle:")
-    #     print(numbers)
-
-    # cv2.destroyAllWindows()
