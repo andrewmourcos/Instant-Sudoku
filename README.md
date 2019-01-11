@@ -3,6 +3,8 @@
 
 Try taking a photo of a sudoku puzzle and use the script in this repo or the *webapp* to solve the puzzle automatically.
 
+<img src="https://github.com/andrewmourcos/Instant-Sudoku/blob/master/Screenshots/instant_sudoku_site.gif">
+
 Through this project, I got to experiment with various classification techniques (sklearn), computer vision (OpenCV), backend web development (flask), server deployment (Heroku), etc.
 
 I experimented with 3 different types of ML classifier objects: KNN, Logistic Regression and Support Vector Machines and I found that the logistic regression was the most accurate at identifying the digits in the puzzle. 
