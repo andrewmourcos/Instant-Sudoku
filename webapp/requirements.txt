@@ -14,7 +14,7 @@ Jinja2>=2.10.1
 joblib==0.11
 manage==0.1.13
 MarkupSafe==1.0
-numpy==1.14.2
+numpy==1.22.0
 opencv-python==3.3.0.9
 ply==3.11
 post==2018.11.20
